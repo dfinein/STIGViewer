@@ -1,0 +1,41 @@
+# {{ stig.title }}
+{{ stig.description }}
+
+{% for rule in stig.rules %}
+---
+## {{rule.stig_id[0:15]}}
+**{{ rule.rule_title }}**
+
+{{ rule.description | replace('[','!') | replace (']','!') }}
+
+|                   |                   |                                                    |
+|-------------------|-------------------|----------------------------------------------------|
+| **Group ID**      | **Rule ID**       | **STIG ID**                                        |
+|-------------------|-------------------|----------------------------------------------------|
+| {{rule.group_id}} | {{rule.rule_id}}  | {{rule.stig_id}}                                   |
+|-------------------|-------------------|----------------------------------------------------|
+| **SRG ID**        | **Severity**      | **Legacy IDs**                                     |
+|-------------------|-------------------|----------------------------------------------------| 
+| {{rule.srg_id}}   | {{rule.severity}} | {% for id in rule.legacy_id -%}{{id}}{%- endfor %} |
+
+
+
+### {{rule.stig_id}}: Check
+```
+{% for line in rule.fix_check.splitlines() %}
+{{ line }}
+{% endfor %}
+```
+
+### {{rule.stig_id}}: Fix
+```
+{% for line in rule.fix_text.splitlines() %}
+{{ line }}
+{% endfor %}
+```
+
+### {{rule.stig_id}}: References
+{% for reference in rule.reference_id %}
+* {{ reference }}
+{% endfor %}
+{% endfor %}

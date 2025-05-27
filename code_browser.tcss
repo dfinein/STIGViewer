@@ -1,0 +1,40 @@
+Screen {
+    &:inline {
+        height: 50vh;
+    }
+}
+
+#stig-list {
+    display: none;
+    scrollbar-gutter: stable;
+    overflow: auto;
+    width: 25vw;
+    height: 100%;
+    dock: left;  
+}
+
+#stig-list .stig_version {
+    padding-left: 1;
+}
+
+.-show-tree #stig-list {
+    display: block;
+    max-width: 30%;
+}
+
+#code-view {
+    overflow: auto scroll;
+    min-width: 100%;
+    hatch: right $panel;
+}
+#code {
+    width: 100%;
+}
+
+Widget#loading {
+    align: center middle;
+}
+
+MarkdownTableOfContents  {
+    width: 20vw;
+}
