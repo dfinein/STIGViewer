@@ -27,6 +27,7 @@ Screen {
     min-width: 100%;
     hatch: right $panel;
 }
+
 #code {
     width: 100%;
 }
@@ -37,4 +38,12 @@ Widget#loading {
 
 MarkdownTableOfContents  {
     width: 20vw;
+}
+
+#code Markdown {
+    overflow-x: auto;
+}
+
+#code Markdown CodeBlock {
+    text-wrap: wrap;   /* key setting */
 }

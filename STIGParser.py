@@ -12,7 +12,7 @@ class STIGParser:
         if not filename.endswith('.zip'):
             raise Exception("File must end in .zip")
         if not os.path.isfile(filename):
-            raise FileNotFoundError(f"{stig_zip} is unable to be found")
+            raise FileNotFoundError(f"{filename} is unable to be found")
         if not zipfile.is_zipfile(filename):
             raise Exception("Not a ZIP file")
         self.zip = zipfile.ZipFile(filename, 'r')
@@ -33,7 +33,7 @@ class STIGParser:
         logging.debug(f"called for {stig}")
         output = []
         stig_filename = self.zip_name(stig)
-        with zipfile.ZipFile(self.zip.open(f"{self.filename}/{stig_filename}")) as zip_stig:
+        with zipfile.ZipFile(self.zip.open(f"{stig_filename}")) as zip_stig:
             filepaths = zip_stig.namelist()
             logging.debug(filepaths)
             for filepath in filepaths:
@@ -55,7 +55,7 @@ class STIGParser:
         logging.debug(f"called for {stig} : {version}")
         stig_filename = self.zip_name(stig)
         version_filename = self.version_name(version)
-        with zipfile.ZipFile(self.zip.open(f"{self.filename}/{stig_filename}")) as zip_stig:
+        with zipfile.ZipFile(self.zip.open(f"{stig_filename}")) as zip_stig:
             filepaths = zip_stig.namelist()
             for filepath in filepaths:
                 if filepath.startswith(version_filename) and filepath.endswith(".xml"):
@@ -131,7 +131,7 @@ if __name__ == "__main__":
     logging.basicConfig(format=log_format,level=logging.INFO)
     logging.debug("Begin CLI interaction")
     working_dir = os.getcwd()
-    stig_viewer = STIGParser("U_SRG-STIG_Library_April_2025.zip")
+    stig_viewer = STIGParser("U_SRG-STIG_Library_April_2026.zip")
     stigs = stig_viewer.list_stigs()
     for i in stigs:
         print(i)
@@ -144,7 +144,7 @@ if __name__ == "__main__":
         if usr_version in folders:
             file = stig_viewer.get_stig(usr_stig, usr_version)
             stig_dict = stig_viewer.parse_stig(file)
-            rule_md = rule_template.render(rule = stig_dict["rules"][0])
+            rule_md = rule_template.render(stig = stig_dict["rules"][0])
             print(rule_md)
             '''
             for key, value in stig_dict["rules"][0].items():

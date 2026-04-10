@@ -23,14 +23,14 @@
 ### {{rule.stig_id}}: Check
 ```
 {% for line in rule.fix_check.splitlines() %}
-{{ line }}
+{{ line -}}
 {% endfor %}
 ```
 
 ### {{rule.stig_id}}: Fix
 ```
 {% for line in rule.fix_text.splitlines() %}
-{{ line }}
+{{ line -}}
 {% endfor %}
 ```
 

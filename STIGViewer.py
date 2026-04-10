@@ -72,7 +72,7 @@ class STIGViewer(App):
 
     show_tree = var(True)
     path: reactive[str | None] = reactive(None)
-    stig_parser = STIGParser.STIGParser('U_SRG-STIG_Library_April_2025.zip')
+    stig_parser = STIGParser.STIGParser('U_SRG-STIG_Library_April_2026.zip')
     j2_env = Environment(loader=FileSystemLoader(f'./'))
 
     def watch_show_tree(self, show_tree: bool) -> None:
@@ -160,4 +160,7 @@ class STIGViewer(App):
 
 
 if __name__ == "__main__":
+    #STIGViewer().run()
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
     STIGViewer().run()
